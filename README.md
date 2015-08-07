@@ -36,7 +36,7 @@ This Library suply also FadeIn Transition.
 #### please use UIViewControllerTransitioningDelegate
 > class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
-`secondVC.transitioningDelegate = self`
+`secondVC.transitioningDelegate = self`
 
 ``` swift
 // MARK: UIViewControllerTransitioningDelegate
