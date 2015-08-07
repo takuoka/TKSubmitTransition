@@ -1,6 +1,16 @@
 
 # TKSubmitTransition
 
+
+[![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+[![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
+)](https://developer.apple.com/swift)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+)](http://mit-license.org)
+[![CocoaPods](https://img.shields.io/cocoapods/v/TKSubmitTransition.svg)]()
+
+
 Inpired by https://dribbble.com/shots/1945593-Login-Home-Screen
 
 I created Animated UIButton of Loading Animation and Transition Animation.
@@ -12,6 +22,9 @@ I made them as classes and you can use it with ease.
 
 
 ![Demo GIF Animation](https://github.com/entotsu/TKSubmitTransition/blob/master/demo.gif "Demo GIF Animation")
+
+# Installation
+	pod 'TKSubmitTransition'
 
 # Usage
 
