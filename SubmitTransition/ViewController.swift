@@ -10,9 +10,11 @@ import UIKit
 
 class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     var btn: TKTransitionSubmitButton!
-    t
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
         let bg = UIImageView(image: UIImage(named: "Login"))
         bg.frame = self.view.frame
@@ -25,7 +27,10 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         btn.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         btn.addTarget(self, action: "onTapButton", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
-        
+    
+        NSTimer.schedule(delay: 30.0) { timer in
+            self.onTapButton()
+        }
     }
     
     func onTapButton() {
