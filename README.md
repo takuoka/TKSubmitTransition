@@ -29,7 +29,7 @@ func didFinishYourLoading() {
 
 ```
 ## TKFadeInAnimator
-This Library suply also FadeIn Transition.
+This Library also supply fade-in Animator Class of (`UIViewControllerAnimatedTransitioning`)
 
 ### Usage
 
