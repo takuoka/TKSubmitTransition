@@ -4,7 +4,10 @@
 Inpired by https://dribbble.com/shots/1945593-Login-Home-Screen
 
 I created Animated UIButton of Loading Animation and Transition Animation.
-As you can see in the GIF Anime below, you can find the “Sign in” button rolling and after that, next UIViewController will fade-in. I made them as classes and you can use it with ease.
+
+As you can see in the GIF Anime below, you can find the “Sign in” button rolling and after that, next UIViewController will fade-in. 
+
+I made them as classes and you can use it with ease.
 
 
 
