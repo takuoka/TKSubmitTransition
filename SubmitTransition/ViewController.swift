@@ -13,7 +13,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
         let bg = UIImageView(image: UIImage(named: "Login"))
@@ -38,10 +38,6 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
                 self.presentViewController(secondVC, animated: true, completion: nil)
             }
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     // MARK: UIViewControllerTransitioningDelegate

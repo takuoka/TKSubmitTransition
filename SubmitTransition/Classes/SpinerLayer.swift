@@ -10,7 +10,6 @@ import UIKit
 
 
 class SpinerLayer :CAShapeLayer {
-
     
     init(frame:CGRect) {
         super.init()

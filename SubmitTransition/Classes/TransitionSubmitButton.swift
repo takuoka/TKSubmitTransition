@@ -90,7 +90,6 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     
     public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         let a = anim as! CABasicAnimation
-        println(a.keyPath)
         if a.keyPath == "opacity" {
             didEndFinishAnimation?()
         }
