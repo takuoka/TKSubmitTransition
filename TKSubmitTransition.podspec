@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TKSubmitTransition"
-  s.version      = "0.0.1"
+  s.version      = "0.1"
   s.summary      = "Animated UIButton of Loading Animation and Transition Animation. Inspired by https://dribbble.com/shots/1945593-Login-Home-Screen"
 
   # s.description  = <<-DESC
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/entotsu/TKSubmitTransition.git"}#, :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/entotsu/TKSubmitTransition.git", :tag => "0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
