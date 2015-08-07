@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00C1CC21B7495FC00412E02 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00C1CC11B7495FC00412E02 /* SecondViewController.swift */; };
 		B0FAC85E1B7356F40034E00B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC85D1B7356F40034E00B /* AppDelegate.swift */; };
 		B0FAC8601B7356F40034E00B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC85F1B7356F40034E00B /* ViewController.swift */; };
 		B0FAC8631B7356F40034E00B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FAC8611B7356F40034E00B /* Main.storyboard */; };
 		B0FAC8651B7356F40034E00B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FAC8641B7356F40034E00B /* Images.xcassets */; };
 		B0FAC8681B7356F40034E00B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0FAC8661B7356F40034E00B /* LaunchScreen.xib */; };
 		B0FAC8741B7356F40034E00B /* SubmitTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC8731B7356F40034E00B /* SubmitTransitionTests.swift */; };
+		B0FAC87F1B7359000034E00B /* TransitionSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC87E1B7359000034E00B /* TransitionSubmitButton.swift */; };
+		B0FAC8851B736C460034E00B /* NSTimerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC8841B736C460034E00B /* NSTimerEx.swift */; };
+		B0FAC8871B7440190034E00B /* CGRectEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC8861B7440190034E00B /* CGRectEx.swift */; };
+		B0FAC8891B744FB10034E00B /* SpinerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC8881B744FB10034E00B /* SpinerLayer.swift */; };
+		B0FAC88B1B747F990034E00B /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAC88A1B747F990034E00B /* FadeTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B00C1CC11B7495FC00412E02 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B0FAC8581B7356F30034E00B /* SubmitTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubmitTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FAC85C1B7356F30034E00B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0FAC85D1B7356F40034E00B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +43,11 @@
 		B0FAC86D1B7356F40034E00B /* SubmitTransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SubmitTransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FAC8721B7356F40034E00B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0FAC8731B7356F40034E00B /* SubmitTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTransitionTests.swift; sourceTree = "<group>"; };
+		B0FAC87E1B7359000034E00B /* TransitionSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionSubmitButton.swift; sourceTree = "<group>"; };
+		B0FAC8841B736C460034E00B /* NSTimerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerEx.swift; sourceTree = "<group>"; };
+		B0FAC8861B7440190034E00B /* CGRectEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectEx.swift; sourceTree = "<group>"; };
+		B0FAC8881B744FB10034E00B /* SpinerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinerLayer.swift; sourceTree = "<group>"; };
+		B0FAC88A1B747F990034E00B /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +89,10 @@
 		B0FAC85A1B7356F30034E00B /* SubmitTransition */ = {
 			isa = PBXGroup;
 			children = (
+				B0FAC87D1B7358C90034E00B /* Classes */,
 				B0FAC85D1B7356F40034E00B /* AppDelegate.swift */,
 				B0FAC85F1B7356F40034E00B /* ViewController.swift */,
+				B00C1CC11B7495FC00412E02 /* SecondViewController.swift */,
 				B0FAC8611B7356F40034E00B /* Main.storyboard */,
 				B0FAC8641B7356F40034E00B /* Images.xcassets */,
 				B0FAC8661B7356F40034E00B /* LaunchScreen.xib */,
@@ -110,6 +124,18 @@
 				B0FAC8721B7356F40034E00B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0FAC87D1B7358C90034E00B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B0FAC87E1B7359000034E00B /* TransitionSubmitButton.swift */,
+				B0FAC8881B744FB10034E00B /* SpinerLayer.swift */,
+				B0FAC8861B7440190034E00B /* CGRectEx.swift */,
+				B0FAC8841B736C460034E00B /* NSTimerEx.swift */,
+				B0FAC88A1B747F990034E00B /* FadeTransition.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +238,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00C1CC21B7495FC00412E02 /* SecondViewController.swift in Sources */,
+				B0FAC8891B744FB10034E00B /* SpinerLayer.swift in Sources */,
+				B0FAC88B1B747F990034E00B /* FadeTransition.swift in Sources */,
 				B0FAC8601B7356F40034E00B /* ViewController.swift in Sources */,
+				B0FAC8871B7440190034E00B /* CGRectEx.swift in Sources */,
 				B0FAC85E1B7356F40034E00B /* AppDelegate.swift in Sources */,
+				B0FAC8851B736C460034E00B /* NSTimerEx.swift in Sources */,
+				B0FAC87F1B7359000034E00B /* TransitionSubmitButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +443,7 @@
 				B0FAC8791B7356F40034E00B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0FAC87A1B7356F40034E00B /* Build configuration list for PBXNativeTarget "SubmitTransitionTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +452,7 @@
 				B0FAC87C1B7356F40034E00B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
