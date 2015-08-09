@@ -28,9 +28,9 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         btn.addTarget(self, action: "onTapButton", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
         
-        NSTimer.schedule(delay: 1) { timer in
-            self.onTapButton()
-        }
+//        NSTimer.schedule(delay: 1) { timer in
+//            self.onTapButton()
+//        }
     }
     
     func onTapButton() {

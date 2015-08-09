@@ -14,6 +14,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     public var didEndFinishAnimation : (()->())? = nil
 
     let pink = UIColor(red:0.992157, green: 0.215686, blue: 0.403922, alpha: 1)
+    let darkPink = UIColor(red:0.798012, green: 0.171076, blue: 0.321758, alpha: 1)
     let springGoEase = CAMediaTimingFunction(controlPoints: 0.45,-0.36,0.44,0.92)
     let shrinkCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95,0.02,1,0.05)
@@ -30,6 +31,17 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         self.layer.addSublayer(self.spiner)        
     }
 
+    override public var highlighted: Bool {
+        didSet {
+            if (highlighted) {
+                self.backgroundColor = darkPink
+            }
+            else {
+                self.backgroundColor = pink
+            }
+        }
+    }
+    
     public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,4 +98,5 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         expandAnim.removedOnCompletion = false
         layer.addAnimation(expandAnim, forKey: expandAnim.keyPath)
     }
+    
 }
