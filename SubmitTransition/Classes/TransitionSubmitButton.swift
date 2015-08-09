@@ -18,7 +18,6 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95,0.02,1,0.05)
     let spiner: SpinerLayer!
 
-    public var willEndFinishAnimation : (()->())? = nil
     public var didEndFinishAnimation : (()->())? = nil
     
     let shrinkDuration: CFTimeInterval  = 0.1
@@ -49,8 +48,8 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     }
     
     public func startFinishAnimation(completion:(()->())?) {
-        self.willEndFinishAnimation = completion
-        self.expandFadeOut()
+        self.didEndFinishAnimation = completion
+        self.expand()
         self.spiner.stopAnimation()
     }
     
@@ -65,36 +64,22 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         self.layer.addAnimationStaticaly(shrinkAnim)
     }
     
-    func expandFadeOut() {
-        let expand = CABasicAnimation(keyPath: "transform.scale")
-        expand.fromValue = 1.0
-        expand.toValue = 26.0
-
-        let fadeOut = CABasicAnimation(keyPath: "opacity")
-        fadeOut.fromValue = 1.0
-        fadeOut.toValue = 0.0
-
-        expand.timingFunction = expandCurve
-        fadeOut.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-
-        expand.duration = 0.3
-        fadeOut.beginTime = CACurrentMediaTime() + expand.duration + 0.1
-        fadeOut.duration = 0.1
-        
-        expand.delegate = self
-        fadeOut.delegate = self
-        
-        layer.addAnimationStaticaly(expand)
-//        layer.addAnimationStaticaly(fadeOut)
+    func expand() {
+        let expandAnim = CABasicAnimation(keyPath: "transform.scale")
+        expandAnim.fromValue = 1.0
+        expandAnim.toValue = 26.0
+        expandAnim.timingFunction = expandCurve
+        expandAnim.duration = 0.3
+        expandAnim.delegate = self
+        layer.addAnimationStaticaly(expandAnim)
     }
+    
+        
     
     public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         let a = anim as! CABasicAnimation
-        if a.keyPath == "opacity" {
-            didEndFinishAnimation?()
-        }
         if a.keyPath == "transform.scale" {
-            willEndFinishAnimation?()
+            didEndFinishAnimation?()
         }
     }
 }

@@ -131,9 +131,9 @@
 			children = (
 				B0FAC87E1B7359000034E00B /* TransitionSubmitButton.swift */,
 				B0FAC8881B744FB10034E00B /* SpinerLayer.swift */,
+				B0FAC88A1B747F990034E00B /* FadeTransition.swift */,
 				B0FAC8861B7440190034E00B /* CGRectEx.swift */,
 				B0FAC8841B736C460034E00B /* NSTimerEx.swift */,
-				B0FAC88A1B747F990034E00B /* FadeTransition.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
