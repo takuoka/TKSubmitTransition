@@ -27,6 +27,10 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         btn.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         btn.addTarget(self, action: "onTapButton", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
+        
+        NSTimer.schedule(delay: 1) { timer in
+            self.onTapButton()
+        }
     }
     
     func onTapButton() {

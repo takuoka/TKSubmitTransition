@@ -43,7 +43,10 @@ class SpinerLayer :CAShapeLayer {
         rotate.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         
         rotate.repeatCount = HUGE
-        self.addAnimationStaticaly(rotate)
+        rotate.fillMode = kCAFillModeForwards
+        rotate.removedOnCompletion = false
+        self.addAnimation(rotate, forKey: rotate.keyPath)
+
     }
     
     func stopAnimation() {

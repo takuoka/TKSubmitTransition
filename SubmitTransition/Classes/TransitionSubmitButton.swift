@@ -11,26 +11,22 @@ import UIKit
 
 public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDelegate {
     
+    public var didEndFinishAnimation : (()->())? = nil
+
     let pink = UIColor(red:0.992157, green: 0.215686, blue: 0.403922, alpha: 1)
     let springGoEase = CAMediaTimingFunction(controlPoints: 0.45,-0.36,0.44,0.92)
     let shrinkCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-    //CAMediaTimingFunction(controlPoints: 0.93,-0.35,1,0.41)
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95,0.02,1,0.05)
-    let spiner: SpinerLayer!
-
-    public var didEndFinishAnimation : (()->())? = nil
-    
     let shrinkDuration: CFTimeInterval  = 0.1
+
+    let spiner: SpinerLayer!
     
     public override init(frame: CGRect) {
         self.spiner = SpinerLayer(frame: frame)
-
         super.init(frame: frame)
-        
         self.backgroundColor = pink
         self.layer.cornerRadius = self.frame.height / 2
         self.clipsToBounds = true
-
         self.layer.addSublayer(self.spiner)        
     }
 
@@ -53,7 +49,20 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         self.spiner.stopAnimation()
     }
     
+    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+        let a = anim as! CABasicAnimation
+        if a.keyPath == "transform.scale" {
+            didEndFinishAnimation?()
+            NSTimer.schedule(delay: 1) { timer in
+                self.returnToOriginalState()
+            }
+        }
+    }
     
+    func returnToOriginalState() {
+        self.layer.removeAllAnimations()
+        self.titleLabel?.hidden = false
+    }
     
     func shrink() {
         let shrinkAnim = CABasicAnimation(keyPath: "bounds.size.width")
@@ -61,7 +70,9 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         shrinkAnim.toValue = frame.height
         shrinkAnim.duration = shrinkDuration
         shrinkAnim.timingFunction = shrinkCurve
-        self.layer.addAnimationStaticaly(shrinkAnim)
+        shrinkAnim.fillMode = kCAFillModeForwards
+        shrinkAnim.removedOnCompletion = false
+        layer.addAnimation(shrinkAnim, forKey: shrinkAnim.keyPath)
     }
     
     func expand() {
@@ -71,24 +82,8 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         expandAnim.timingFunction = expandCurve
         expandAnim.duration = 0.3
         expandAnim.delegate = self
-        layer.addAnimationStaticaly(expandAnim)
-    }
-    
-        
-    
-    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
-        let a = anim as! CABasicAnimation
-        if a.keyPath == "transform.scale" {
-            didEndFinishAnimation?()
-        }
-    }
-}
-
-
-extension CALayer {
-    func addAnimationStaticaly(anim: CABasicAnimation) {
-        anim.fillMode = kCAFillModeForwards
-        anim.removedOnCompletion = false
-        self.addAnimation(anim, forKey: anim.keyPath)
+        expandAnim.fillMode = kCAFillModeForwards
+        expandAnim.removedOnCompletion = false
+        layer.addAnimation(expandAnim, forKey: expandAnim.keyPath)
     }
 }
