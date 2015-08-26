@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     var btn: TKTransitionSubmitButton!
 
+    @IBOutlet weak var btnFromNib: TKTransitionSubmitButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,24 +20,21 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         let bg = UIImageView(image: UIImage(named: "Login"))
         bg.frame = self.view.frame
         self.view.addSubview(bg)
-        
+
         btn = TKTransitionSubmitButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 64, height: 44))
         btn.center = self.view.center
         btn.frame.bottom = self.view.frame.height - 60
         btn.setTitle("Sign in", forState: .Normal)
         btn.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
-        btn.addTarget(self, action: "onTapButton", forControlEvents: UIControlEvents.TouchUpInside)
+        btn.addTarget(self, action: "onTapButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
-        
-//        NSTimer.schedule(delay: 1) { timer in
-//            self.onTapButton()
-//        }
+        self.view.bringSubviewToFront(self.btnFromNib)
     }
-    
-    func onTapButton() {
-        self.btn.startLoadingAnimation()
+
+    @IBAction func onTapButton(button: TKTransitionSubmitButton) {
+        button.startLoadingAnimation()
         NSTimer.schedule(delay: 1.0) { timer in
-            self.btn.startFinishAnimation {
+            button.startFinishAnimation {
                 let secondVC = SecondViewController()
                 secondVC.transitioningDelegate = self
                 self.presentViewController(secondVC, animated: true, completion: nil)

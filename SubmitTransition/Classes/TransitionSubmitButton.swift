@@ -20,15 +20,15 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95,0.02,1,0.05)
     let shrinkDuration: CFTimeInterval  = 0.1
 
-    let spiner: SpinerLayer!
+    lazy var spiner: SpinerLayer! = {
+        let s = SpinerLayer(frame: self.frame)
+        self.layer.addSublayer(s)
+        return s
+    }()
     
     public override init(frame: CGRect) {
-        self.spiner = SpinerLayer(frame: frame)
         super.init(frame: frame)
-        self.backgroundColor = pink
-        self.layer.cornerRadius = self.frame.height / 2
-        self.clipsToBounds = true
-        self.layer.addSublayer(self.spiner)        
+        self.setup()
     }
 
     override public var highlighted: Bool {
@@ -43,10 +43,16 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     }
     
     public required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        self.setup()
     }
 
-    
+    func setup() {
+        self.backgroundColor = pink
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
+    }
+
     public func startLoadingAnimation() {
         self.titleLabel?.hidden = true
         self.shrink()
