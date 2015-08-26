@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  SubmitTransition
-//
-//  Created by Takuya Okamoto on 2015/08/06.
-//  Copyright (c) 2015年 Uniface. All rights reserved.
-
-
 import UIKit
 
 class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
@@ -28,25 +20,23 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         btn.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         btn.addTarget(self, action: "onTapButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
+
         self.view.bringSubviewToFront(self.btnFromNib)
     }
 
     @IBAction func onTapButton(button: TKTransitionSubmitButton) {
-        button.startLoadingAnimation()
-        NSTimer.schedule(delay: 1.0) { timer in
-            button.startFinishAnimation {
-                let secondVC = SecondViewController()
-                secondVC.transitioningDelegate = self
-                self.presentViewController(secondVC, animated: true, completion: nil)
-            }
-        }
+        button.animate(1, completion: { () -> () in
+            let secondVC = SecondViewController()
+            secondVC.transitioningDelegate = self
+            self.presentViewController(secondVC, animated: true, completion: nil)
+        })
     }
 
     // MARK: UIViewControllerTransitioningDelegate
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fadeInAnimator = TKFadeInAnimator()
-        return fadeInAnimator
+        return TKFadeInAnimator(transitionDuration: 0.5, startingAlpha: 0.8)
     }
+    
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil
     }
