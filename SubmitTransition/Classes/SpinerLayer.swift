@@ -1,11 +1,3 @@
-//
-//  Spiner.swift
-//  SubmitTransition
-//
-//  Created by Takuya Okamoto on 2015/08/07.
-//  Copyright (c) 2015年 Uniface. All rights reserved.
-//
-
 import UIKit
 
 
@@ -16,7 +8,7 @@ class SpinerLayer :CAShapeLayer {
 
         let radius:CGFloat = (frame.height / 2) * 0.5
         self.frame = CGRectMake(0, 0, frame.height, frame.height)
-        var center = CGPointMake(frame.height / 2, frame.center.y)
+        var center = CGPointMake(frame.height / 2, bounds.center.y)
         let startAngle = 0 - M_PI_2
         let endAngle = M_PI * 2 - M_PI_2
         let clockwise: Bool = true
