@@ -8,7 +8,7 @@ class SpinerLayer :CAShapeLayer {
 
         let radius:CGFloat = (frame.height / 2) * 0.5
         self.frame = CGRectMake(0, 0, frame.height, frame.height)
-        var center = CGPointMake(frame.height / 2, bounds.center.y)
+        let center = CGPointMake(frame.height / 2, bounds.center.y)
         let startAngle = 0 - M_PI_2
         let endAngle = M_PI * 2 - M_PI_2
         let clockwise: Bool = true
@@ -22,7 +22,7 @@ class SpinerLayer :CAShapeLayer {
         self.hidden = true
      }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

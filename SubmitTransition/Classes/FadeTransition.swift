@@ -19,30 +19,33 @@ public class TKFadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         self.startingAlpha = startingAlpha
     }
 
-    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return transitionDuration
     }
     
     public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
         
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-
-        toView.alpha = startingAlpha
-        fromView.alpha = 0.8
-        
-        containerView.addSubview(toView)
-        
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: { () -> Void in
-            
+        if #available(iOS 8.0, *) {
+          let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+          let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+          
+          toView.alpha = startingAlpha
+          fromView.alpha = 0.8
+          
+          containerView!.addSubview(toView)
+          
+          UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: { () -> Void in
             toView.alpha = 1.0
             fromView.alpha = 0.0
             
             }, completion: {
-                _ in
-                fromView.alpha = 1.0
-                transitionContext.completeTransition(true)
-        })
+              _ in
+              fromView.alpha = 1.0
+              transitionContext.completeTransition(true)
+          })
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
