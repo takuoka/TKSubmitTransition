@@ -44,7 +44,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         }
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setup()
     }
@@ -86,7 +86,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         startFinishAnimation(duration, completion: completion)
     }
 
-    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
             didEndFinishAnimation?()
