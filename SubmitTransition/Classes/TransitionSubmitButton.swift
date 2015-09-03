@@ -86,6 +86,11 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         startFinishAnimation(duration, completion: completion)
     }
 
+    public func setOriginalState() {
+        self.returnToOriginalState()
+        self.spiner.stopAnimation()
+    }
+    
     public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
@@ -97,6 +102,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     }
     
     func returnToOriginalState() {
+        
         self.layer.removeAllAnimations()
         self.setTitle(self.cachedTitle, forState: .Normal)
     }
