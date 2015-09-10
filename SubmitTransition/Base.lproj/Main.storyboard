@@ -29,10 +29,10 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
-                                        <color key="value" red="0.0" green="0.46666666670000001" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.80000000000000004" green="0.0" blue="0.20205424067083444" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
-                                        <color key="value" red="0.0" green="0.3274388113957683" blue="0.56159474206349214" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.56159474206349214" green="0.11322686558675865" blue="0.022467013972638509" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
