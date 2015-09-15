@@ -30,6 +30,11 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
             self.setBackgroundColor()
         }
     }
+    @IBInspectable public var normalCornerRadius:CGFloat? = 0.0{
+        didSet {
+            self.layer.cornerRadius = normalCornerRadius!
+        }
+    }
 
     var cachedTitle: String?
 
@@ -44,13 +49,12 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         }
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init!(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
         self.setup()
     }
 
     func setup() {
-        self.layer.cornerRadius = self.frame.height / 2
         self.clipsToBounds = true
         self.setBackgroundColor()
     }
@@ -67,10 +71,16 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     public func startLoadingAnimation() {
         self.cachedTitle = titleForState(.Normal)
         self.setTitle("", forState: .Normal)
-        self.shrink()
-        NSTimer.schedule(delay: shrinkDuration - 0.25) { timer in
-            self.spiner.animation()
+        UIView.animateWithDuration(0.1, animations: { () -> Void in
+            self.layer.cornerRadius = self.frame.height / 2
+            }) { (done) -> Void in
+                self.shrink()
+                NSTimer.schedule(delay: self.shrinkDuration - 0.25) { timer in
+                    
+                    self.spiner.animation()
+                }
         }
+        
     }
 
     public func startFinishAnimation(delay: NSTimeInterval, completion:(()->())?) {
@@ -86,7 +96,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         startFinishAnimation(duration, completion: completion)
     }
 
-    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
             didEndFinishAnimation?()
