@@ -9,7 +9,7 @@
 )](http://mit-license.org)
 [![CocoaPods](https://img.shields.io/cocoapods/v/TKSubmitTransition.svg)]()
 
-**Swift2.0!! :cat: **
+**Swift2.0!! :cat:**
 
 Inpired by https://dribbble.com/shots/1945593-Login-Home-Screen
 
