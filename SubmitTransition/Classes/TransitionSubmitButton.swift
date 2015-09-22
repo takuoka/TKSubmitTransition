@@ -1,11 +1,20 @@
 import Foundation
 import UIKit
 
-let PINK = UIColor(red:0.992157, green: 0.215686, blue: 0.403922, alpha: 1)
-let DARK_PINK = UIColor(red:0.798012, green: 0.171076, blue: 0.321758, alpha: 1)
-
 @IBDesignable
 public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDelegate {
+    
+    lazy var spiner: SpinerLayer! = {
+        let s = SpinerLayer(frame: self.frame)
+        self.layer.addSublayer(s)
+        return s
+    }()
+    
+    @IBInspectable var spinnerColor: UIColor = UIColor.whiteColor() {
+        didSet {
+            spiner.spinnerColor = spinnerColor
+        }
+    }
     
     public var didEndFinishAnimation : (()->())? = nil
 
@@ -13,23 +22,6 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     let shrinkCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95, 0.02, 1, 0.05)
     let shrinkDuration: CFTimeInterval  = 0.1
-
-    lazy var spiner: SpinerLayer! = {
-        let s = SpinerLayer(frame: self.frame)
-        self.layer.addSublayer(s)
-        return s
-    }()
-
-    @IBInspectable public var highlightedBackgroundColor: UIColor? = DARK_PINK {
-        didSet {
-            self.setBackgroundColor()
-        }
-    }
-    @IBInspectable public var normalBackgroundColor: UIColor? = PINK {
-        didSet {
-            self.setBackgroundColor()
-        }
-    }
     @IBInspectable public var normalCornerRadius:CGFloat? = 0.0{
         didSet {
             self.layer.cornerRadius = normalCornerRadius!
@@ -43,12 +35,6 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         self.setup()
     }
 
-    override public var highlighted: Bool {
-        didSet {
-            self.setBackgroundColor()
-        }
-    }
-
     public required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.setup()
@@ -56,16 +42,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
 
     func setup() {
         self.clipsToBounds = true
-        self.setBackgroundColor()
-    }
-
-    func setBackgroundColor() {
-        if (highlighted) {
-            self.backgroundColor = highlightedBackgroundColor
-        }
-        else {
-            self.backgroundColor = normalBackgroundColor
-        }
+        spiner.spinnerColor = spinnerColor
     }
 
     public func startLoadingAnimation() {
@@ -111,10 +88,11 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         }
     }
     
-    func returnToOriginalState() {
+    public func returnToOriginalState() {
         
         self.layer.removeAllAnimations()
         self.setTitle(self.cachedTitle, forState: .Normal)
+        self.spiner.stopAnimation()
     }
     
     func shrink() {
