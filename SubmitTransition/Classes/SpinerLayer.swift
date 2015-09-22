@@ -1,7 +1,13 @@
 import UIKit
 
 
-class SpinerLayer :CAShapeLayer {
+class SpinerLayer: CAShapeLayer {
+    
+    var spinnerColor = UIColor.whiteColor() {
+        didSet {
+            strokeColor = spinnerColor.CGColor
+        }
+    }
     
     init(frame:CGRect) {
         super.init()
@@ -15,7 +21,7 @@ class SpinerLayer :CAShapeLayer {
         self.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise).CGPath
 
         self.fillColor = nil
-        self.strokeColor = UIColor.whiteColor().CGColor
+        self.strokeColor = spinnerColor.CGColor
         self.lineWidth = 1
         
         self.strokeEnd = 0.4
