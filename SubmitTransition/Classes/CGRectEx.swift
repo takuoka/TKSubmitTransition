@@ -14,7 +14,7 @@ extension CGRect {
             return self.origin.x
         }
         set {
-            self = CGRectMake(newValue, self.minY, self.width, self.height)
+            self = CGRectMake(newValue, self.y, self.width, self.height)
         }
     }
     
@@ -32,7 +32,7 @@ extension CGRect {
             return self.size.width
         }
         set {
-            self = CGRectMake(self.x, self.width, newValue, self.height)
+            self = CGRectMake(self.x, self.y, newValue, self.height)
         }
     }
     
@@ -41,7 +41,7 @@ extension CGRect {
             return self.size.height
         }
         set {
-            self = CGRectMake(self.x, self.minY, self.width, newValue)
+            self = CGRectMake(self.x, self.y, self.width, newValue)
         }
     }
     
