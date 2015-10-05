@@ -26,6 +26,7 @@ I made them as classes and you can use it with ease.
 
 # Installation
 	pod 'TKSubmitTransition'
+	use_frameworks!
 
 # Usage
 
