@@ -10,7 +10,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         return s
     }()
     
-    @IBInspectable var spinnerColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable public var spinnerColor: UIColor = UIColor.whiteColor() {
         didSet {
             spiner.spinnerColor = spinnerColor
         }
