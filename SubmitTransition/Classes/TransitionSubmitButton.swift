@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
-public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDelegate {
+public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDelegate, CAAnimationDelegate {
     
     lazy var spiner: SpinerLayer! = {
         let s = SpinerLayer(frame: self.frame)
@@ -10,7 +10,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         return s
     }()
     
-    @IBInspectable public var spinnerColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable public var spinnerColor: UIColor = UIColor.white {
         didSet {
             spiner.spinnerColor = spinnerColor
         }
@@ -46,13 +46,13 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     }
 
     public func startLoadingAnimation() {
-        self.cachedTitle = titleForState(.Normal)
-        self.setTitle("", forState: .Normal)
-        UIView.animateWithDuration(0.1, animations: { () -> Void in
+        self.cachedTitle = title(for: .normal)
+        self.setTitle("", for: .normal)
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.layer.cornerRadius = self.frame.height / 2
             }) { (done) -> Void in
                 self.shrink()
-                NSTimer.schedule(delay: self.shrinkDuration - 0.25) { timer in
+                Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
                     
                     self.spiner.animation()
                 }
@@ -60,17 +60,17 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         
     }
 
-    public func startFinishAnimation(delay: NSTimeInterval, completion:(()->())?) {
-        NSTimer.schedule(delay: delay) { timer in
+    public func startFinishAnimation(delay: TimeInterval, completion:(()->())?) {
+        Timer.schedule(delay: delay) { timer in
             self.didEndFinishAnimation = completion
             self.expand()
             self.spiner.stopAnimation()
         }
     }
 
-    public func animate(duration: NSTimeInterval, completion:(()->())?) {
+    public func animate(duration: TimeInterval, completion:(()->())?) {
         startLoadingAnimation()
-        startFinishAnimation(duration, completion: completion)
+        startFinishAnimation(delay: duration, completion: completion)
     }
 
     public func setOriginalState() {
@@ -78,11 +78,11 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         self.spiner.stopAnimation()
     }
     
-    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
             didEndFinishAnimation?()
-            NSTimer.schedule(delay: 1) { timer in
+            Timer.schedule(delay: 1) { timer in
                 self.returnToOriginalState()
             }
         }
@@ -91,7 +91,7 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
     public func returnToOriginalState() {
         
         self.layer.removeAllAnimations()
-        self.setTitle(self.cachedTitle, forState: .Normal)
+        self.setTitle(self.cachedTitle, for: .normal)
         self.spiner.stopAnimation()
     }
     
@@ -102,8 +102,8 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         shrinkAnim.duration = shrinkDuration
         shrinkAnim.timingFunction = shrinkCurve
         shrinkAnim.fillMode = kCAFillModeForwards
-        shrinkAnim.removedOnCompletion = false
-        layer.addAnimation(shrinkAnim, forKey: shrinkAnim.keyPath)
+        shrinkAnim.isRemovedOnCompletion = false
+        layer.add(shrinkAnim, forKey: shrinkAnim.keyPath)
     }
     
     func expand() {
@@ -114,8 +114,8 @@ public class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningD
         expandAnim.duration = 0.3
         expandAnim.delegate = self
         expandAnim.fillMode = kCAFillModeForwards
-        expandAnim.removedOnCompletion = false
-        layer.addAnimation(expandAnim, forKey: expandAnim.keyPath)
+        expandAnim.isRemovedOnCompletion = false
+        layer.add(expandAnim, forKey: expandAnim.keyPath)
     }
     
 }
