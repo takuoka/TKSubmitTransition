@@ -7,7 +7,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
         let bg = UIImageView(image: UIImage(named: "Login"))
         bg.frame = self.view.frame
@@ -16,19 +16,19 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         btn = TKTransitionSubmitButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 64, height: 44))
         btn.center = self.view.center
         btn.frame.bottom = self.view.frame.height - 60
-        btn.setTitle("Sign in", for: .normal)
+        btn.setTitle("Sign in", forState: .Normal)
         btn.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
-        btn.addTarget(self, action: #selector(ViewController.onTapButton), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: "onTapButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
 
-        self.view.bringSubview(toFront: self.btnFromNib)
+        self.view.bringSubviewToFront(self.btnFromNib)
     }
 
-    @IBAction func onTapButton() {
-        btn.animate(duration: 1, completion: { () -> () in
+    @IBAction func onTapButton(button: TKTransitionSubmitButton) {
+        button.animate(1, completion: { () -> () in
             let secondVC = SecondViewController()
             secondVC.transitioningDelegate = self
-            self.present(secondVC, animated: true, completion: nil)
+            self.presentViewController(secondVC, animated: true, completion: nil)
         })
     }
 
