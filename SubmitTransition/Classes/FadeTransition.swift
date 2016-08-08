@@ -10,31 +10,31 @@ import UIKit
 
 
 public class TKFadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    var transitionDuration: NSTimeInterval = 0.5
+    var transitionDuration: TimeInterval = 0.5
     var startingAlpha: CGFloat = 0.0
 
-    public convenience init(transitionDuration: NSTimeInterval, startingAlpha: CGFloat){
+    public convenience init(transitionDuration: TimeInterval, startingAlpha: CGFloat){
         self.init()
         self.transitionDuration = transitionDuration
         self.startingAlpha = startingAlpha
     }
 
-    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return transitionDuration
     }
     
-    public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
         
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+        let toView = transitionContext.view(forKey: UITransitionContextToViewKey)!
+        let fromView = transitionContext.view(forKey: UITransitionContextFromViewKey)!
 
         toView.alpha = startingAlpha
         fromView.alpha = 0.8
         
-        containerView!.addSubview(toView)
+        containerView.addSubview(toView)
         
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: { () -> Void in
+        UIView.animate(withDuration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
             
             toView.alpha = 1.0
             fromView.alpha = 0.0
