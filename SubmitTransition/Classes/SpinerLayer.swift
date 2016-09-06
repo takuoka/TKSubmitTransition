@@ -3,9 +3,9 @@ import UIKit
 
 class SpinerLayer: CAShapeLayer {
     
-    var spinnerColor = UIColor.whiteColor() {
+    var spinnerColor = UIColor.white {
         didSet {
-            strokeColor = spinnerColor.CGColor
+            strokeColor = spinnerColor.cgColor
         }
     }
     
@@ -13,19 +13,19 @@ class SpinerLayer: CAShapeLayer {
         super.init()
 
         let radius:CGFloat = (frame.height / 2) * 0.5
-        self.frame = CGRectMake(0, 0, frame.height, frame.height)
-        let center = CGPointMake(frame.height / 2, bounds.center.y)
+        self.frame = CGRect(x:0, y:0, width:frame.height, height:frame.height)
+        let center = CGPoint(x:frame.height / 2, y:bounds.center.y)
         let startAngle = 0 - M_PI_2
         let endAngle = M_PI * 2 - M_PI_2
         let clockwise: Bool = true
-        self.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise).CGPath
+        self.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise).cgPath
 
         self.fillColor = nil
-        self.strokeColor = spinnerColor.CGColor
+        self.strokeColor = spinnerColor.cgColor
         self.lineWidth = 1
         
         self.strokeEnd = 0.4
-        self.hidden = true
+        self.isHidden = true
      }
 
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +33,7 @@ class SpinerLayer: CAShapeLayer {
     }
     
     func animation() {
-        self.hidden = false
+        self.isHidden = false
         let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
         rotate.fromValue = 0
         rotate.toValue = M_PI * 2
@@ -42,13 +42,13 @@ class SpinerLayer: CAShapeLayer {
         
         rotate.repeatCount = HUGE
         rotate.fillMode = kCAFillModeForwards
-        rotate.removedOnCompletion = false
-        self.addAnimation(rotate, forKey: rotate.keyPath)
+        rotate.isRemovedOnCompletion = false
+        self.add(rotate, forKey: rotate.keyPath)
 
     }
     
     func stopAnimation() {
-        self.hidden = true
+        self.isHidden = true
         self.removeAllAnimations()
     }
 }
