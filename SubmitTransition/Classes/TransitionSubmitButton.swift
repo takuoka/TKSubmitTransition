@@ -53,7 +53,6 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
             }, completion: { (done) -> Void in
                 self.shrink()
                 Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
-                    
                     self.spiner.animation()
                 }
         }) 
