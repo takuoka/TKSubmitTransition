@@ -109,6 +109,38 @@ func didFinishYourLoading() {
 
 ```
 
+## Networking
+
+If you are running requests to a server and are waiting a responce, you can use something like this to stop and start the animation:
+
+``` swift
+// start loading the button animations
+button.startLoadingAnimation()
+
+// run query in background thread
+async.background {
+  let query = PFQuery(className: "Blah")
+  query.whereKey("user", equalTo: user)
+	let results = try! query.findObjects()
+  
+	if results.count == 0 {
+		// insert alertView telling user that their details don't work
+	}
+	else {
+		// return to main thread to complete login
+		async.main {
+                        // tell the button to finish its animations
+			button.startFinishingAnimation(1) {
+			        let sb = UIStoryboard(name: "Main", bundle: nil)
+	            	        let vc = sb.instantiateViewController(withIdentifier: "MainVC")
+			        vc.transitioningDelegate = self
+			        self.present(vc, animated: true, completion: nil)
+                        }
+		}
+	}
+```
+Thanks to (@sarfrazb)[]! for pointing this out.
+
 ## TKFadeInAnimator
 This Library also supply fade-in Animator Class of `UIViewControllerAnimatedTransitioning`.
 
