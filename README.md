@@ -139,7 +139,7 @@ async.background {
 		}
 	}
 ```
-Thanks to (@sarfrazb)[]! for pointing this out.
+Thanks to [@sarfrazb](https://github.com/sarfrazb) for pointing this out.
 
 ## TKFadeInAnimator
 This Library also supply fade-in Animator Class of `UIViewControllerAnimatedTransitioning`.
