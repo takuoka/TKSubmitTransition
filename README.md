@@ -29,12 +29,16 @@ I made them as classes and you can use it with ease.
 
 **Swift 3 / Swift 4** 
 
+``` ruby
 pod 'TKSubmitTransition'
+```
 
 
 **Swift 2 & Below** 
 
-pod 'TKSubmitTransition' 
+``` ruby
+pod 'TKSubmitTransition', '~> 0.2' 
+```
 
 
 ## Manually ##
@@ -91,16 +95,16 @@ Use this to animate your button. Follow the steps in `Delegation` to setup the t
 
 ``` swift
 func didStartYourLoading() {
-btn.startLoadingAnimation()
+  btn.startLoadingAnimation()
 }
 
 func didFinishYourLoading() {
-btn.startFinishAnimation {
-//Your Transition
-let secondVC = SecondViewController()
-secondVC.transitioningDelegate = self
-self.presentViewController(secondVC, animated: true, completion: nil)
-}
+  btn.startFinishAnimation {
+    //Your Transition
+    let secondVC = SecondViewController()
+    secondVC.transitioningDelegate = self
+    self.presentViewController(secondVC, animated: true, completion: nil)
+  }
 }
 
 ```
@@ -122,23 +126,27 @@ Please use This for transition animation.
 
 **Swift 3/4**
 
+``` swift
 func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-return TKFadeInAnimator(transitionDuration: 0.5, startingAlpha: 0.8)
+  return TKFadeInAnimator(transitionDuration: 0.5, startingAlpha: 0.8)
 }
 
 func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-return nil
+  return nil
 }
+```
 
 **Swift 2 & Below**
+
 ``` swift
 // MARK: UIViewControllerTransitioningDelegate
 func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-let fadeInAnimator = TKFadeInAnimator()
-return fadeInAnimator
+  let fadeInAnimator = TKFadeInAnimator()
+  return fadeInAnimator
 }
+
 func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-return nil
+  return nil
 }
 
 ```
