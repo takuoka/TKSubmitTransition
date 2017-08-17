@@ -30,7 +30,7 @@ I made them as classes and you can use it with ease.
 **Swift 3 / Swift 4** 
 
 ``` ruby
-pod 'TKSubmitTransition', :git => 'https://github.com/entotsu/TKSubmitTransition.git', :tag => '2.0.0'
+pod 'TKSubmitTransition', :git => 'https://github.com/entotsu/TKSubmitTransition.git', :tag => '2.0'
 ```
 
 
