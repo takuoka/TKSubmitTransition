@@ -23,7 +23,7 @@ class SecondViewController: UIViewController {
         bg.addGestureRecognizer(tapRecognizer)
     }
     
-    func onTapScreen() {
+    @objc func onTapScreen() {
         self.dismiss(animated: true, completion: nil)
     }
 }
