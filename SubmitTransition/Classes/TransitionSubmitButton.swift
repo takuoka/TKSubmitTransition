@@ -6,7 +6,6 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     
     lazy var spiner: SpinerLayer! = {
         let s = SpinerLayer(frame: self.frame)
-        self.layer.addSublayer(s)
         return s
     }()
     
@@ -17,7 +16,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     }
     
     open var didEndFinishAnimation : (()->())? = nil
-
+    
     let springGoEase = CAMediaTimingFunction(controlPoints: 0.45, -0.36, 0.44, 0.92)
     let shrinkCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95, 0.02, 1, 0.05)
@@ -27,51 +26,53 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
             self.layer.cornerRadius = normalCornerRadius
         }
     }
-
+    
     var cachedTitle: String?
+    var isAnimating = false
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
     }
-
+    
     public required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.setup()
     }
-
+    
     func setup() {
         self.clipsToBounds = true
         spiner.spinnerColor = spinnerColor
     }
-
+    
     open func startLoadingAnimation() {
+        self.isAnimating = true
         self.cachedTitle = title(for: UIControlState())
         self.setTitle("", for: UIControlState())
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.layer.cornerRadius = self.frame.height / 2
-            }, completion: { (done) -> Void in
-                self.shrink()
-                Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
-                    self.spiner.animation()
-                }
-        }) 
+        self.layer.addSublayer(spiner)
         
+        // Animate
+        self.cornerRadius()
+        self.shrink()
+        _ = Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
+            self.spiner.animation()
+        }
     }
-
+    
     open func startFinishAnimation(_ delay: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
-        Timer.schedule(delay: delay) { timer in
+        self.isAnimating = true
+        _ = Timer.schedule(delay: delay) { timer in
             self.didEndFinishAnimation = completion
             self.expand(animation)
             self.spiner.stopAnimation()
         }
     }
-
+    
     open func animate(_ duration: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
         startLoadingAnimation()
         startFinishAnimation(duration, animation, completion: completion)
     }
-
+    
     open func setOriginalState() {
         self.returnToOriginalState()
         self.spiner.stopAnimation()
@@ -81,21 +82,34 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
             didEndFinishAnimation?()
-            Timer.schedule(delay: 1) { timer in
+            _ = Timer.schedule(delay: 1) { timer in
                 self.returnToOriginalState()
             }
         }
     }
     
     open func returnToOriginalState() {
-        
+        self.spiner.removeFromSuperlayer()
         self.layer.removeAllAnimations()
         self.setTitle(self.cachedTitle, for: UIControlState())
         self.spiner.stopAnimation()
+        self.isAnimating = false
+    }
+    
+    func cornerRadius() {
+        let cornerRadiusAnim = CABasicAnimation(keyPath: "cornerRadius")
+        // cornerRadiusAnim.fromValue = frame.width
+        cornerRadiusAnim.toValue = frame.height/2
+        cornerRadiusAnim.duration = shrinkDuration
+        cornerRadiusAnim.timingFunction = shrinkCurve
+        cornerRadiusAnim.fillMode = kCAFillModeForwards
+        cornerRadiusAnim.isRemovedOnCompletion = false
+        layer.add(cornerRadiusAnim, forKey: cornerRadiusAnim.keyPath)
     }
     
     func shrink() {
         let shrinkAnim = CABasicAnimation(keyPath: "bounds.size.width")
+        shrinkAnim.beginTime = CACurrentMediaTime() + 0.1
         shrinkAnim.fromValue = frame.width
         shrinkAnim.toValue = frame.height
         shrinkAnim.duration = shrinkDuration
