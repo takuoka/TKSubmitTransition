@@ -6,7 +6,6 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     
     lazy var spiner: SpinerLayer! = {
         let s = SpinerLayer(frame: self.frame)
-        self.layer.addSublayer(s)
         return s
     }()
     
@@ -29,7 +28,8 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     }
     
     var cachedTitle: String?
-    
+    var isAnimating = false
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -46,28 +46,29 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     }
     
     open func startLoadingAnimation() {
-        self.cachedTitle = title(for: UIControl.State())
-        self.setTitle("", for: UIControl.State())
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.layer.cornerRadius = self.frame.height / 2
-        }, completion: { (done) -> Void in
-            self.shrink()
-            Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
-                self.spiner.animation()
-            }
-        })
+        self.isAnimating = true
+        self.cachedTitle = title(for: UIControlState())
+        self.setTitle("", for: UIControlState())
+        self.layer.addSublayer(spiner)
         
+        // Animate
+        self.cornerRadius()
+        self.shrink()
+        _ = Timer.schedule(delay: self.shrinkDuration - 0.25) { timer in
+            self.spiner.animation()
+        }
     }
     
-    open func startFinishAnimation(_ delay: TimeInterval, completion:(()->())?) {
-        Timer.schedule(delay: delay) { timer in
+    open func startFinishAnimation(_ delay: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
+        self.isAnimating = true
+        _ = Timer.schedule(delay: delay) { timer in
             self.didEndFinishAnimation = completion
             self.expand()
             self.spiner.stopAnimation()
         }
     }
     
-    open func animate(_ duration: TimeInterval, completion:(()->())?) {
+    open func animate(_ duration: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
         startLoadingAnimation()
         startFinishAnimation(duration, completion: completion)
     }
@@ -81,21 +82,34 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         let a = anim as! CABasicAnimation
         if a.keyPath == "transform.scale" {
             didEndFinishAnimation?()
-            Timer.schedule(delay: 1) { timer in
+            _ = Timer.schedule(delay: 1) { timer in
                 self.returnToOriginalState()
             }
         }
     }
     
     open func returnToOriginalState() {
-        
+        self.spiner.removeFromSuperlayer()
         self.layer.removeAllAnimations()
         self.setTitle(self.cachedTitle, for: UIControl.State())
         self.spiner.stopAnimation()
+        self.isAnimating = false
+    }
+    
+    func cornerRadius() {
+        let cornerRadiusAnim = CABasicAnimation(keyPath: "cornerRadius")
+        // cornerRadiusAnim.fromValue = frame.width
+        cornerRadiusAnim.toValue = frame.height/2
+        cornerRadiusAnim.duration = shrinkDuration
+        cornerRadiusAnim.timingFunction = shrinkCurve
+        cornerRadiusAnim.fillMode = kCAFillModeForwards
+        cornerRadiusAnim.isRemovedOnCompletion = false
+        layer.add(cornerRadiusAnim, forKey: cornerRadiusAnim.keyPath)
     }
     
     func shrink() {
         let shrinkAnim = CABasicAnimation(keyPath: "bounds.size.width")
+        shrinkAnim.beginTime = CACurrentMediaTime() + 0.1
         shrinkAnim.fromValue = frame.width
         shrinkAnim.toValue = frame.height
         shrinkAnim.duration = shrinkDuration
