@@ -18,7 +18,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     open var didEndFinishAnimation : (()->())? = nil
     
     let springGoEase = CAMediaTimingFunction(controlPoints: 0.45, -0.36, 0.44, 0.92)
-    let shrinkCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+    let shrinkCurve = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
     let expandCurve = CAMediaTimingFunction(controlPoints: 0.95, 0.02, 1, 0.05)
     let shrinkDuration: CFTimeInterval  = 0.1
     @IBInspectable open var normalCornerRadius:CGFloat = 0.0 {
@@ -63,14 +63,14 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         self.isAnimating = true
         _ = Timer.schedule(delay: delay) { timer in
             self.didEndFinishAnimation = completion
-            self.expand(animation)
+            self.expand()
             self.spiner.stopAnimation()
         }
     }
     
     open func animate(_ duration: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
         startLoadingAnimation()
-        startFinishAnimation(duration, animation, completion: completion)
+        startFinishAnimation(duration, completion: completion)
     }
     
     open func setOriginalState() {
@@ -91,7 +91,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     open func returnToOriginalState() {
         self.spiner.removeFromSuperlayer()
         self.layer.removeAllAnimations()
-        self.setTitle(self.cachedTitle, for: UIControlState())
+        self.setTitle(self.cachedTitle, for: UIControl.State())
         self.spiner.stopAnimation()
         self.isAnimating = false
     }
@@ -114,19 +114,19 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         shrinkAnim.toValue = frame.height
         shrinkAnim.duration = shrinkDuration
         shrinkAnim.timingFunction = shrinkCurve
-        shrinkAnim.fillMode = kCAFillModeForwards
+        shrinkAnim.fillMode = CAMediaTimingFillMode.forwards
         shrinkAnim.isRemovedOnCompletion = false
         layer.add(shrinkAnim, forKey: shrinkAnim.keyPath)
     }
     
-    func expand(_ animation: CAMediaTimingFunction) {
+    func expand() {
         let expandAnim = CABasicAnimation(keyPath: "transform.scale")
         expandAnim.fromValue = 1.0
         expandAnim.toValue = 26.0
-        expandAnim.timingFunction = animation
+        expandAnim.timingFunction = expandCurve
         expandAnim.duration = 0.3
         expandAnim.delegate = self
-        expandAnim.fillMode = kCAFillModeForwards
+        expandAnim.fillMode = CAMediaTimingFillMode.forwards
         expandAnim.isRemovedOnCompletion = false
         layer.add(expandAnim, forKey: expandAnim.keyPath)
     }
