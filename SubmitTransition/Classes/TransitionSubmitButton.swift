@@ -47,8 +47,8 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
     
     open func startLoadingAnimation() {
         self.isAnimating = true
-        self.cachedTitle = title(for: UIControlState())
-        self.setTitle("", for: UIControlState())
+        self.cachedTitle = title(for: UIControl.State())
+        self.setTitle("", for: UIControl.State())
         self.layer.addSublayer(spiner)
         
         // Animate
@@ -59,7 +59,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         }
     }
     
-    open func startFinishAnimation(_ delay: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
+    open func startFinishAnimation(_ delay: TimeInterval, completion:(()->())?) {
         self.isAnimating = true
         _ = Timer.schedule(delay: delay) { timer in
             self.didEndFinishAnimation = completion
@@ -68,7 +68,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         }
     }
     
-    open func animate(_ duration: TimeInterval,_ animation: CAMediaTimingFunction, completion:(()->())?) {
+    open func animate(_ duration: TimeInterval, completion:(()->())?) {
         startLoadingAnimation()
         startFinishAnimation(duration, completion: completion)
     }
@@ -102,7 +102,7 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
         cornerRadiusAnim.toValue = frame.height/2
         cornerRadiusAnim.duration = shrinkDuration
         cornerRadiusAnim.timingFunction = shrinkCurve
-        cornerRadiusAnim.fillMode = kCAFillModeForwards
+        cornerRadiusAnim.fillMode = CAMediaTimingFillMode.forwards
         cornerRadiusAnim.isRemovedOnCompletion = false
         layer.add(cornerRadiusAnim, forKey: cornerRadiusAnim.keyPath)
     }
