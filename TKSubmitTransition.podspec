@@ -74,7 +74,7 @@ Pod::Spec.new do |s|
   #
 
   s.source       = { :git => "https://github.com/entotsu/TKSubmitTransition.git", :tag => s.version.to_s }
-
+  s.swift_version = '5.0'  
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
