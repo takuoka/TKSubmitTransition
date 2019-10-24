@@ -27,6 +27,12 @@ I made them as classes and you can use it with ease.
 
 ## Cocoapods ##
 
+**Swift 5**
+
+``` ruby
+pod 'TKSubmitTransition', :git => 'https://github.com/entotsu/TKSubmitTransition.git'
+```
+
 **Swift 4**
 
 ``` ruby
