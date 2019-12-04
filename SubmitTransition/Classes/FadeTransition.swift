@@ -26,8 +26,8 @@ open class TKFadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         
-        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-        let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        let toView = transitionContext.view(forKey: .to)!
+        let fromView = (transitionContext.viewController(forKey: .from)?.view)!
 
         toView.alpha = startingAlpha
         fromView.alpha = 0.8
